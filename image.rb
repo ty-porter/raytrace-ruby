@@ -1,5 +1,5 @@
-require 'pry'
 require 'time'
+require 'pry'
 
 require './color'
 require './ray'
@@ -30,7 +30,7 @@ class Image
 
       (0..width - 1).each do |x|
         u = x.to_f / (width - 1)
-        v = y.to_f / (width - 1)
+        v = y.to_f / (height - 1)
 
         direction = ray_direction(u, v)
         ray = Ray.new(camera.origin, direction)
@@ -48,6 +48,18 @@ class Image
 
   private
 
+  def hit_sphere(center, radius, ray)
+    oc = ray.origin - center
+    a  = ray.direction.dot(ray.direction)
+    b  = oc.dot(ray.direction) * 2.0
+    c  = oc.dot(oc) - (radius * radius)
+
+    # Quadratic equation
+    discriminant = (b * b) - (4 * a * c)
+    # binding.pry if discriminant < 0
+    discriminant > 0
+  end
+
   def ray_direction(u, v)
     h_offset = camera.horizontal * u
     v_offset = camera.vertical * v
@@ -56,6 +68,11 @@ class Image
   end
 
   def ray_color(ray)
+    # Hard-coding this for now...
+    if hit_sphere(Point.new(0, 0, -1), 0.5, ray)
+      return Color.new(1, 0, 0)
+    end
+
     t = 0.5 * (ray.unit_vector.y + 1.0)
 
     vector = Color.new(1.0, 1.0, 1.0) * (1.0 - t) + Color.new(0.5, 0.7, 1.0) * t
