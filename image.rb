@@ -1,5 +1,4 @@
 require 'time'
-require 'pry'
 
 require './color'
 require './ray'
@@ -29,6 +28,10 @@ class Image
       print 'Percent complete: ' + percent_done(y) + "%\r"
 
       (0..width - 1).each do |x|
+        # Defining canvas coordinate plane
+        # 
+        # u: canvas horizontal
+        # v: canvas vertical
         u = x.to_f / (width - 1)
         v = y.to_f / (height - 1)
 
@@ -56,8 +59,12 @@ class Image
 
     # Quadratic equation
     discriminant = (b * b) - (4 * a * c)
-    # binding.pry if discriminant < 0
-    discriminant > 0
+    
+    if discriminant < 0
+      -1 # can't do anything with imaginary numbers
+    else
+      -b - Math.sqrt(discriminant) / (2 * a)
+    end
   end
 
   def ray_direction(u, v)
@@ -68,9 +75,12 @@ class Image
   end
 
   def ray_color(ray)
-    # Hard-coding this for now...
-    if hit_sphere(Point.new(0, 0, -1), 0.5, ray)
-      return Color.new(1, 0, 0)
+    t = hit_sphere(Point.new(0, 0, -1), 0.5, ray)
+
+    if t > 0
+      n = ray.at(t).unit_vector - Vector3D.new(0, 0, -1)
+
+      return ( Color.new(n.x + 1, n.y + 1, n.z + 1) * 0.5 ).to_color
     end
 
     t = 0.5 * (ray.unit_vector.y + 1.0)

@@ -7,7 +7,7 @@ class Ray
   attr_reader :origin, :direction
 
   def at(value)
-    origin + (value * direction)
+    origin + (direction * value)
   end
 
   def unit_vector

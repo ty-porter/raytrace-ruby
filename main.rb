@@ -1,3 +1,5 @@
+require 'pry' # to pry the bugs out
+
 require './camera'
 require './image'
 require './point'
