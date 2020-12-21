@@ -1,4 +1,4 @@
-class Vector3D  
+class Vector3D
   def initialize(x = 0, y = 0, z = 0)
     @x = x
     @y = y
@@ -13,6 +13,12 @@ class Vector3D
                  z + vector.z)
   end
 
+  def -(vector)
+    Vector3D.new(x - vector.x,
+                 y - vector.y,
+                 z - vector.z)
+  end
+
   def *(value)
     Vector3D.new(x * value,
                  y * value,
@@ -24,10 +30,10 @@ class Vector3D
   end
 
   def inverse
-    Vector.new(-x, -y, -z)
+    Vector3D.new(-x, -y, -z)
   end
 
-  def length_squared
+  def length
     Math.sqrt(length_squared)
   end
 
@@ -46,12 +52,16 @@ class Vector3D
   end
 
   def unit_vector
-    self / self.length
+    self / length
+  end
+
+  def to_color
+    Color.new(x, y, z)
   end
 
   private
 
   def length_squared
-    x ** 2 + y ** 2 + z ** 2
+    x**2 + y**2 + z**2
   end
 end
