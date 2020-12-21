@@ -25,7 +25,7 @@ class Image
     write("P3\n#{width} #{height}\n255\n")
 
     (height - 1).downto(0).each do |y|
-      print 'Percent complete: ' + percent_done(y) + "%\r"
+      print 'Percent complete: ' + percent_complete(y) + "%\r"
 
       (0..width - 1).each do |x|
         # Defining canvas coordinate plane
@@ -99,8 +99,8 @@ class Image
     file.close
   end
 
-  def percent_done(val)
-    percent = (IMAGE_HEIGHT - val).to_f / IMAGE_HEIGHT * 100
+  def percent_complete(val)
+    percent = (height - val).to_f / height * 100
     percent.to_i.to_s
   end
 end
