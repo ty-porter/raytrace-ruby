@@ -1,5 +1,5 @@
-require './point'
-require './vector3d'
+require_relative './point'
+require_relative './vector3d'
 
 class Camera
   def initialize(width, height, opts = {})

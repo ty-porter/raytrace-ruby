@@ -37,6 +37,10 @@ class Vector3D
     Math.sqrt(length_squared)
   end
 
+  def length_squared
+    x**2 + y**2 + z**2
+  end
+
   def to_s
     "#{x} #{y} #{z}"
   end
@@ -57,11 +61,5 @@ class Vector3D
 
   def to_color
     Color.new(x, y, z)
-  end
-
-  private
-
-  def length_squared
-    x**2 + y**2 + z**2
   end
 end

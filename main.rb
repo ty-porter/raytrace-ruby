@@ -1,9 +1,9 @@
 require 'pry' # to pry the bugs out
 
-require './camera'
-require './image'
-require './point'
-require './vector3d'
+require './classes/camera'
+require './classes/image'
+require './classes/point'
+require './classes/vector3d'
 
 # Image
 ASPECT_RATIO = 16.0 / 9.0

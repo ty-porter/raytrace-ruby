@@ -1,7 +1,7 @@
 require 'time'
 
-require './color'
-require './ray'
+require_relative './color'
+require_relative './ray'
 
 class Image
   IMAGE_PATH = "images/image_#{Time.now.to_i}.ppm".freeze
@@ -52,18 +52,16 @@ class Image
   private
 
   def hit_sphere(center, radius, ray)
-    oc = ray.origin - center
-    a  = ray.direction.dot(ray.direction)
-    b  = oc.dot(ray.direction) * 2.0
-    c  = oc.dot(oc) - (radius * radius)
-
-    # Quadratic equation
-    discriminant = (b * b) - (4 * a * c)
+    oc           = ray.origin - center
+    a            = ray.direction.length_squared
+    half_b       = oc.dot(ray.direction)
+    c            = oc.length_squared - radius**2
+    discriminant = half_b**2 - a * c
     
     if discriminant < 0
       -1 # can't do anything with imaginary numbers
     else
-      -b - Math.sqrt(discriminant) / (2 * a)
+      (-half_b - Math.sqrt(discriminant)) / a
     end
   end
 
