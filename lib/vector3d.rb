@@ -8,21 +8,21 @@ class Vector3D
   attr_reader :x, :y, :z
 
   def +(vector)
-    Vector3D.new(x + vector.x,
-                 y + vector.y,
-                 z + vector.z)
+    self.class.new(x + vector.x,
+                   y + vector.y,
+                   z + vector.z)
   end
 
   def -(vector)
-    Vector3D.new(x - vector.x,
-                 y - vector.y,
-                 z - vector.z)
+    self.class.new(x - vector.x,
+                   y - vector.y,
+                   z - vector.z)
   end
 
   def *(value)
-    Vector3D.new(x * value,
-                 y * value,
-                 z * value)
+    self.class.new(x * value,
+                   y * value,
+                   z * value)
   end
 
   def /(value)
@@ -30,7 +30,7 @@ class Vector3D
   end
 
   def inverse
-    Vector3D.new(-x, -y, -z)
+    self.class.new(-x, -y, -z)
   end
 
   def length
@@ -50,9 +50,9 @@ class Vector3D
   end
 
   def cross(vector)
-    Vector.new(y * vector.z - z * vector.y,
-               z * vector.x - x * vector.z,
-               x * vector.y - y * vector.x)
+    self.class.new(y * vector.z - z * vector.y,
+                   z * vector.x - x * vector.z,
+                   x * vector.y - y * vector.x)
   end
 
   def unit_vector

@@ -75,27 +75,24 @@ class Image
       #
       # However, it seems like it should? Otherwise, the output color would have values > 255
       # The below code averages the normal vector and the color white (255, 255, 255)
-      vector = (hit_record.normal.unit_vector + Color.new(1.0, 1.0, 1.0)) * 0.5
-
       # Without using unit_vector, it's possible (likely) to get a vector with x/y/z > 1.0:
       #
       # normal = Vector3D.new(4.0, 4.0, 4.0)
       # color  = Color.new(   1.0, 1.0, 1.0)
       #
-      # vector = (normal + color) * 0.5
+      # scaled_color = (normal + color) * 0.5
       # => Vector3D(x: 2.0, y: 2.0, z: 2.0)
       #
-      # vector.to_color.to_s
+      # scaled_color.to_s
       # => "511 511 511"
       #
       # Max RGB is (255, 255, 255)
-      return vector.to_color
+      return (Color.new(1.0, 1.0, 1.0) + hit_record.normal.unit_vector) * 0.5
     end
 
     t = 0.5 * (ray.unit_vector.y + 1.0)
 
-    vector = Color.new(1.0, 1.0, 1.0) * (1.0 - t) + Color.new(0.5, 0.7, 1.0) * t
-    vector.to_color
+    Color.new(1.0, 1.0, 1.0) * (1.0 - t) + Color.new(0.5, 0.7, 1.0) * t
   end
 
   def write(data)
@@ -104,7 +101,7 @@ class Image
 
   def write_sampled_color(color)
     scale      = 1.0 / SAMPLES_PER_PIXEL
-    scaled_rgb = (color * scale).to_color.rgb
+    scaled_rgb = (color * scale).rgb
     scaled_rgb.map do |value|
       clamp(value, 0.0, 0.999)
     end

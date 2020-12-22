@@ -8,7 +8,7 @@ class Color < Vector3D
   alias b z
 
   def to_s
-    [r, g, b].map { |v| (v * MAX).to_i.to_s }.join(' ') + "\n"
+    rgb.map { |v| (v * MAX).to_i.to_s }.join(' ') + "\n"
   end
 
   def rgb
