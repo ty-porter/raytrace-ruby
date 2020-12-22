@@ -1,5 +1,5 @@
 class Vector3D
-  def initialize(x = 0, y = 0, z = 0)
+  def initialize(x = 0.0, y = 0.0, z = 0.0)
     @x = x
     @y = y
     @z = z
