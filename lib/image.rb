@@ -3,8 +3,13 @@ require 'time'
 require_relative './color'
 require_relative './ray'
 
+require_relative './utils/utils'
+
 class Image
-  IMAGE_PATH = "images/image_#{Time.now.to_i}.ppm".freeze
+  include Utils
+
+  IMAGE_PATH        = "images/image_#{Time.now.to_i}.ppm".freeze
+  SAMPLES_PER_PIXEL = 100
 
   def initialize(width, height, camera, world)
     File.delete(IMAGE_PATH) if File.exist?(IMAGE_PATH)
@@ -30,19 +35,21 @@ class Image
       print 'Percent complete: ' + percent_complete(y) + "%\r"
 
       (0..width - 1).each do |x|
-        # Defining canvas coordinate plane
-        #
-        # u: canvas horizontal
-        # v: canvas vertical
-        u = x.to_f / (width - 1)
-        v = y.to_f / (height - 1)
+        color = Color.new(0, 0, 0)
+        (0..SAMPLES_PER_PIXEL - 1).each do |_s|
+          # Defining canvas coordinate plane
+          #
+          # u: canvas horizontal
+          # v: canvas vertical
+          #
+          # add rand to x/y for sampling & antialiasing
+          u = (x.to_f + rand) / (width - 1)
+          v = (y.to_f + rand) / (height - 1)
 
-        direction = ray_direction(u, v)
-        ray = Ray.new(camera.origin, direction)
-
-        color = ray_color(ray)
-
-        write(color.to_s)
+          ray = camera.get_ray(u, v)
+          color += ray_color(ray)
+        end
+        write_sampled_color(color)
       end
     end
 
@@ -93,6 +100,18 @@ class Image
 
   def write(data)
     file.write(data)
+  end
+
+  def write_sampled_color(color)
+    scale      = 1.0 / SAMPLES_PER_PIXEL
+    scaled_rgb = (color * scale).to_color.rgb
+    scaled_rgb.map do |value|
+      clamp(value, 0.0, 0.999)
+    end
+
+    scaled_color = Color.new(*scaled_rgb)
+
+    file.write(scaled_color.to_s)
   end
 
   def open

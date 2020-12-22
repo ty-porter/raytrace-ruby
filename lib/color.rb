@@ -10,4 +10,8 @@ class Color < Vector3D
   def to_s
     [r, g, b].map { |v| (v * MAX).to_i.to_s }.join(' ') + "\n"
   end
+
+  def rgb
+    [r, g, b]
+  end
 end
