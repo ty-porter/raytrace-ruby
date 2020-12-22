@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pry' # to pry the bugs out
 
 require './lib/camera'

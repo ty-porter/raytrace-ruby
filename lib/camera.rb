@@ -1,6 +1,25 @@
+# frozen_string_literal: true
+
 require_relative './point'
 require_relative './vector3d'
 
+# Camera class for viewing the world.
+#
+# Params:
+#  opts (Hash), defaults to {}
+#
+# Valid options are:
+#   :aspect_ratio,
+#   :height
+#   :width
+#   :origin
+#   :horizontal
+#   :vertical
+#   :focal_length
+#   :lower_left
+#
+# Options are defaulted unless explicitly passed to the options hash
+# See below for defaults:
 class Camera
   def initialize(opts = {})
     @aspect_ratio = opts[:aspect_ratio] || 16.0 / 9.0

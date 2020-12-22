@@ -1,3 +1,12 @@
+# frozen_string_literal: true
+
+# A vector, contains all operations (+-*/) as well as dot and cross products
+# Classes that have a representation in 3D space inherit from Vector3D
+#
+# Params:
+#  x (Float), defaults to 0.0
+#  y (Float), defaults to 0.0
+#  z (Float), defaults to 0.0
 class Vector3D
   def initialize(x = 0.0, y = 0.0, z = 0.0)
     @x = x
@@ -7,26 +16,26 @@ class Vector3D
 
   attr_reader :x, :y, :z
 
-  def +(vector)
-    self.class.new(x + vector.x,
-                   y + vector.y,
-                   z + vector.z)
+  def +(other)
+    self.class.new(x + other.x,
+                   y + other.y,
+                   z + other.z)
   end
 
-  def -(vector)
-    self.class.new(x - vector.x,
-                   y - vector.y,
-                   z - vector.z)
+  def -(other)
+    self.class.new(x - other.x,
+                   y - other.y,
+                   z - other.z)
   end
 
-  def *(value)
-    self.class.new(x * value,
-                   y * value,
-                   z * value)
+  def *(other)
+    self.class.new(x * other,
+                   y * other,
+                   z * other)
   end
 
-  def /(value)
-    self * (1.to_f / value)
+  def /(other)
+    self * (1.to_f / other)
   end
 
   def inverse
@@ -45,14 +54,14 @@ class Vector3D
     "#{x} #{y} #{z}"
   end
 
-  def dot(vector)
-    (x * vector.x) + (y * vector.y) + (z * vector.z)
+  def dot(other)
+    (x * other.x) + (y * other.y) + (z * other.z)
   end
 
-  def cross(vector)
-    self.class.new(y * vector.z - z * vector.y,
-                   z * vector.x - x * vector.z,
-                   x * vector.y - y * vector.x)
+  def cross(other)
+    self.class.new(y * other.z - z * other.y,
+                   z * other.x - x * other.z,
+                   x * other.y - y * other.x)
   end
 
   def unit_vector

@@ -1,5 +1,12 @@
+# frozen_string_literal: true
+
 require_relative './hittable'
 
+# A representation of a sphere
+#
+# Params:
+#  center (Point)
+#  radius (Float)
 class Sphere < Hittable
   def initialize(center, radius)
     @center = center
@@ -15,7 +22,7 @@ class Sphere < Hittable
     c            = oc.length_squared - radius**2
     discriminant = half_b**2 - a * c
 
-    return false if discriminant < 0
+    return false if discriminant.negative?
 
     sqrt_d = Math.sqrt(discriminant)
 

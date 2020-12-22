@@ -1,3 +1,10 @@
+# frozen_string_literal: true
+
+# A ray in space (------>)
+#
+# Params:
+#   origin (Point)
+#   direction (Vector3D)
 class Ray
   def initialize(origin, direction)
     @origin = origin

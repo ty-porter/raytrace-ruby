@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'time'
 
 require_relative './color'
@@ -5,10 +7,17 @@ require_relative './ray'
 
 require_relative './utils/utils'
 
+# Contains all the frameworks to generate a rendering and write it to a file
+#
+# Params:
+#   width (Integer), in px
+#   height (Integer), in px
+#   camera (Camera)
+#   world (World, HittableList)
 class Image
   include Utils
 
-  IMAGE_PATH        = "images/image_#{Time.now.to_i}.ppm".freeze
+  IMAGE_PATH        = "images/image_#{Time.now.to_i}.ppm"
   SAMPLES_PER_PIXEL = 100
 
   def initialize(width, height, camera, world)

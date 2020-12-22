@@ -1,3 +1,11 @@
+# frozen_string_literal: true
+
+# Storage for a 'hit' by a ray.
+#
+# Params:
+#  point (Point)
+#  normal (Vector3D)
+#  t (Integer), time
 class HitRecord
   # Struct for holding hit statistics
   #
@@ -24,11 +32,18 @@ class HitRecord
     :t
 
   def set_face_normal(ray, outward_normal)
-    @front_face = ray.direction.dot(outward_normal) < 0
+    @front_face = ray.direction.dot(outward_normal).negative?
     @normal = front_face ? outward_normal : outward_normal.inverse
   end
 end
 
+# Base class for a hittable object
+#
+# Params:
+#  ray (Ray)
+#  t_min (Integer)
+#  t_max (Integer)
+#  hit_record (HitRecord), defaults to HitRecord.new
 class Hittable
   def initialize(ray, t_min, t_max, hit_record = HitRecord.new)
     @ray        = ray
@@ -44,6 +59,12 @@ class Hittable
     :hit_record
 end
 
+# Storage for a list of hittables.
+#
+# Params:
+#  None
+#
+# Use HittableList#add to add a Hittable
 class HittableList
   def initialize
     @objects = []
@@ -56,7 +77,7 @@ class HittableList
   end
 
   def clear
-    objects = []
+    @objects = []
   end
 
   def hit?(ray, t_min, t_max, hit_record)
