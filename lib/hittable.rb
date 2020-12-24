@@ -33,7 +33,7 @@ class HitRecord
 
   def set_face_normal(ray, outward_normal)
     @front_face = ray.direction.dot(outward_normal).negative?
-    @normal = front_face ? outward_normal : outward_normal.inverse
+    @normal = front_face ? outward_normal : -outward_normal
   end
 end
 

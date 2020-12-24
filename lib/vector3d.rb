@@ -9,9 +9,9 @@
 #  z (Float), defaults to 0.0
 class Vector3D
   def initialize(x = 0.0, y = 0.0, z = 0.0)
-    @x = x
-    @y = y
-    @z = z
+    @x = x.to_f
+    @y = y.to_f
+    @z = z.to_f
   end
 
   attr_reader :x, :y, :z
@@ -38,7 +38,7 @@ class Vector3D
     self * (1.to_f / other)
   end
 
-  def inverse
+  def -@
     self.class.new(-x, -y, -z)
   end
 
@@ -77,7 +77,7 @@ class Vector3D
   def self.random_in_hemisphere(normal)
     in_unit_sphere = Vector3D.random_in_unit_sphere
 
-    in_unit_sphere.dot(normal) > 0.0 ? in_unit_sphere : in_unit_sphere.inverse
+    in_unit_sphere.dot(normal) > 0.0 ? in_unit_sphere : -in_unit_sphere
   end
 
   # Generate a unit vector from a random vector in unit sphere
@@ -94,7 +94,7 @@ class Vector3D
   end
 
   # Generate a random vector with min <= x,y,z < max
-  # 
+  #
   # Can take either min/max args or no args
   def self.random(*args)
     case args.reject(&:nil?).count
@@ -102,11 +102,11 @@ class Vector3D
       Vector3D.new(rand, rand, rand)
     when 2
       min, max = args.map(&:to_f)
-      raise ArgumentError.new('Minimum must be less than maximum.') if min >= max
+      raise ArgumentError, 'Minimum must be less than maximum.' if min >= max
 
       Vector3D.new(rand(min..max), rand(min..max), rand(min..max))
     else
-      raise ArgumentError.new('Exactly zero or two arguments required.')
+      raise ArgumentError, 'Exactly zero or two arguments required.'
     end
   end
 end
