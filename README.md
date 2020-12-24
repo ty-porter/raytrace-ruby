@@ -2,6 +2,8 @@
 
 Ruby raytracer
 
+![Header](assets/header.png)
+
 Written in Ruby 2.7 thanks largely to the book [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html) by Peter Shirley.
 
 Outputs to .ppm format (you'll need something like [GIMP](https://www.gimp.org/) to view the files).
@@ -23,6 +25,7 @@ The Good | The Bad
 ![Surface Normals of a Sphere](assets/a01_surface_normals.png) | ![Rendering Color](assets/b01_color_mistakes.png)
 ![Rendering the World](assets/a02_world_rendering.png) | ![Rendering Color 2](assets/b02_color_mistakes2.png)
 ![Antialiasing](assets/a03_antialiased_100_per_px.png) | ![Antialiasing Error](assets/b03_antialiasing_error.png)
+![Diffusion](assets/a04_diffusion.png) | ![Diffusion Error](assets/b04_washed_out_diffusion.png)
 
 
 ## Generate Your Own:

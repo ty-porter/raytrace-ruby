@@ -19,6 +19,7 @@ class Image
 
   IMAGE_PATH        = "images/image_#{Time.now.to_i}.ppm"
   SAMPLES_PER_PIXEL = 100
+  MAX_DEPTH         = 50
 
   def initialize(width, height, camera, world)
     File.delete(IMAGE_PATH) if File.exist?(IMAGE_PATH)
@@ -76,27 +77,16 @@ class Image
     camera.lower_left + h_offset + v_offset
   end
 
-  def ray_color(ray)
+  def ray_color(ray, depth = MAX_DEPTH)
     hit_record = HitRecord.new
 
-    if world.hit?(ray, 0, Float::INFINITY, hit_record)
-      # Original guide doesn't use a unit_vector call here
-      #
-      # However, it seems like it should? Otherwise, the output color would have values > 255
-      # The below code averages the normal vector and the color white (255, 255, 255)
-      # Without using unit_vector, it's possible (likely) to get a vector with x/y/z > 1.0:
-      #
-      # normal = Vector3D.new(4.0, 4.0, 4.0)
-      # color  = Color.new(   1.0, 1.0, 1.0)
-      #
-      # scaled_color = (normal + color) * 0.5
-      # => Vector3D(x: 2.0, y: 2.0, z: 2.0)
-      #
-      # scaled_color.to_s
-      # => "511 511 511"
-      #
-      # Max RGB is (255, 255, 255)
-      return (Color.new(1.0, 1.0, 1.0) + hit_record.normal.unit_vector) * 0.5
+    # Return black if we've exceeded ray bounce limit, no more light gathered
+    return Color.black if depth <= 0
+
+    if world.hit?(ray, 0.001, Float::INFINITY, hit_record)
+      target = hit_record.point + Vector3D.random_in_hemisphere(hit_record.normal)
+
+      return ray_color(Ray.new(hit_record.point, target - hit_record.point), depth - 1) * 0.5
     end
 
     t = 0.5 * (ray.unit_vector.y + 1.0)
@@ -112,7 +102,8 @@ class Image
     scale      = 1.0 / SAMPLES_PER_PIXEL
     scaled_rgb = (color * scale).rgb
     scaled_rgb.map do |value|
-      clamp(value, 0.0, 0.999)
+      # Math.sqrt is equivalent to gamma = 2.0 here
+      clamp(Math.sqrt(value), 0.0, 0.999)
     end
 
     scaled_color = Color.new(*scaled_rgb)

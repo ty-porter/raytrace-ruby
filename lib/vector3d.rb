@@ -68,7 +68,45 @@ class Vector3D
     self / length
   end
 
-  def to_color
-    Color.new(x, y, z)
+  # ================
+  # The below methods are used in approximation of Lambertian diffuse
+  # https://raytracing.github.io/books/RayTracingInOneWeekend.html#diffusematerials/analternativediffuseformulation
+  # ================
+
+  # Generate a unit vector from a random vector in the same hemisphere as the normal
+  def self.random_in_hemisphere(normal)
+    in_unit_sphere = Vector3D.random_in_unit_sphere
+
+    in_unit_sphere.dot(normal) > 0.0 ? in_unit_sphere : in_unit_sphere.inverse
+  end
+
+  # Generate a unit vector from a random vector in unit sphere
+  def self.random_unit_vector
+    Vector3D.random_in_unit_sphere.unit_vector
+  end
+
+  # Generate a random vector within a unit sphere
+  def self.random_in_unit_sphere
+    loop do
+      vector = Vector3D.random(-1.0, 1.0)
+      return vector if vector.length_squared < 1
+    end
+  end
+
+  # Generate a random vector with min <= x,y,z < max
+  # 
+  # Can take either min/max args or no args
+  def self.random(*args)
+    case args.reject(&:nil?).count
+    when 0
+      Vector3D.new(rand, rand, rand)
+    when 2
+      min, max = args.map(&:to_f)
+      raise ArgumentError.new('Minimum must be less than maximum.') if min >= max
+
+      Vector3D.new(rand(min..max), rand(min..max), rand(min..max))
+    else
+      raise ArgumentError.new('Exactly zero or two arguments required.')
+    end
   end
 end

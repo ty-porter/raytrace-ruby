@@ -25,4 +25,24 @@ class Color < Vector3D
   def rgb
     [r, g, b]
   end
+
+  def self.black
+    Color.new(0.0, 0.0, 0.0)
+  end
+
+  def self.white
+    Color.new(1.0, 1.0, 1.0)
+  end
+
+  def self.red
+    Color.new(1.0, 0.0, 0.0)
+  end
+
+  def self.green
+    Color.new(0.0, 1.0, 0.0)
+  end
+
+  def self.blue
+    Color.new(0.0, 0.0, 1.0)
+  end
 end

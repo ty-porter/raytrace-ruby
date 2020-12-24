@@ -27,7 +27,7 @@ class Sphere < Hittable
     sqrt_d = Math.sqrt(discriminant)
 
     # Find the nearest root in the acceptable range (t_min/t_max)
-    root = (-half_b - sqrt_d) / (2.0 * a)
+    root = (-half_b - sqrt_d) / a
     if root < t_min || t_max < root
       root = (-half_b + sqrt_d) / a
 
