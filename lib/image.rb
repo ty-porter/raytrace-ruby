@@ -18,7 +18,7 @@ class Image
   include Utils
 
   IMAGE_PATH        = "images/image_#{Time.now.to_i}.ppm"
-  SAMPLES_PER_PIXEL = 10
+  SAMPLES_PER_PIXEL = 100
   MAX_DEPTH         = 50
 
   def initialize(width, height, camera, world)

@@ -89,7 +89,7 @@ class Vector3D
   def self.random_in_unit_sphere
     loop do
       vector = Vector3D.random(-1.0, 1.0)
-      return vector if vector.length_squared >= 1
+      return vector if vector.length_squared < 1
     end
   end
 
