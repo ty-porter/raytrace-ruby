@@ -29,7 +29,8 @@ left = Sphere.new(
   Point.new(-1.0, 0.0, -1.0),
   0.5,
   Materials::Metal.new(
-    Color.new(0.8, 0.8, 0.8)
+    Color.new(0.8, 0.8, 0.8),
+    0.3
   )
 )
 
@@ -37,7 +38,8 @@ right = Sphere.new(
   Point.new(1.0, 0.0, -1.0),
   0.5,
   Materials::Metal.new(
-    Color.new(0.8, 0.6, 0.2)
+    Color.new(0.8, 0.6, 0.2),
+    1.0
   )
 )
 

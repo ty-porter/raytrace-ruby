@@ -10,7 +10,7 @@ module Utils
 
   def clamp(value, min, max)
     return min if value < min
-    return max if value < max
+    return max if value > max
 
     value
   end

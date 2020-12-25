@@ -2,7 +2,7 @@
 
 Ruby raytracer
 
-![Header](assets/a05_metal.png)
+![Header](assets/header.png)
 
 Written in Ruby 2.7 thanks largely to the book [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html) by Peter Shirley.
 

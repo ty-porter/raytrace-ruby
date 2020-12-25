@@ -1,8 +1,16 @@
+# frozen_string_literal: true
+
 require_relative './base_material'
 require_relative '../ray'
 require_relative '../vector3d'
 
 module Materials
+  # Lambertian diffusion (fuzzy) material
+  #
+  # Params:
+  #   albedo (Color)
+  #
+  # Inherits from Materials::BaseMaterial
   class Lambertian < BaseMaterial
     def scatter?(_ray_in, hit_record)
       scatter_direction = hit_record.normal + Vector3D.random_unit_vector
