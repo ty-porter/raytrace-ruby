@@ -2,7 +2,7 @@
 
 Ruby raytracer
 
-![Header](assets/header.png)
+![Header](assets/a05_metal.png)
 
 Written in Ruby 2.7 thanks largely to the book [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html) by Peter Shirley.
 
@@ -26,6 +26,7 @@ The Good | The Bad
 ![Rendering the World](assets/a02_world_rendering.png) | ![Rendering Color 2](assets/b02_color_mistakes2.png)
 ![Antialiasing](assets/a03_antialiased_100_per_px.png) | ![Antialiasing Error](assets/b03_antialiasing_error.png)
 ![Diffusion](assets/a04_diffusion.png) | ![Diffusion Error](assets/b04_washed_out_diffusion.png)
+![Materials Differentiation](assets/a05_metal.png) | ![Materials Mistake](assets/b05_materials_rendering.png)
 
 
 ## Generate Your Own:

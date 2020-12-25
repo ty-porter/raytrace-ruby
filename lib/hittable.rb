@@ -6,6 +6,7 @@
 #  point (Point)
 #  normal (Vector3D)
 #  t (Integer), time
+#  material (Material)
 class HitRecord
   # Struct for holding hit statistics
   #
@@ -14,22 +15,26 @@ class HitRecord
   # struct hit_record {
   #   point3 p;
   #   vec3 normal;
+  #   shared_ptr<material> mat_ptr;
   #   double t;
+  #   bool front_face;
   # };
   #
   # Calling #hit? on a hittable sets its associated HitRecord values
-  def initialize(point = nil, normal = nil, t = nil)
+  def initialize(point = nil, normal = nil, t = nil, material = nil)
     @point      = point
     @normal     = normal
     @t          = t
     @front_face = false
+    @material   = material
   end
 
   attr_accessor \
     :front_face,
     :point,
     :normal,
-    :t
+    :t,
+    :material
 
   def set_face_normal(ray, outward_normal)
     @front_face = ray.direction.dot(outward_normal).negative?

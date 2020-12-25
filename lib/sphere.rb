@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
 require_relative './hittable'
+require_relative './materials/lambertian'
 
 # A representation of a sphere
 #
 # Params:
 #  center (Point)
 #  radius (Float)
+#  material (Material), defaults to Materials::Lambertian
 class Sphere < Hittable
-  def initialize(center, radius)
-    @center = center
-    @radius = radius
+  def initialize(center, radius, material = Materials::Lambertian.new)
+    @center   = center
+    @radius   = radius
+    @material = material
   end
 
-  attr_reader :center, :radius
+  attr_reader :center, :radius, :material
 
   def hit?(ray, t_min, t_max, hit_record)
     oc           = ray.origin - center
@@ -34,9 +37,11 @@ class Sphere < Hittable
       return false if root < t_min || t_max < root
     end
 
-    hit_record.t     = root
-    hit_record.point = ray.at(hit_record.t)
-    outward_normal   = (hit_record.point - center) / radius
+    hit_record.t        = root
+    hit_record.point    = ray.at(hit_record.t)
+    hit_record.material = material
+
+    outward_normal = (hit_record.point - center) / radius
     hit_record.set_face_normal(ray, outward_normal)
 
     true

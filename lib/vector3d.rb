@@ -29,9 +29,15 @@ class Vector3D
   end
 
   def *(other)
-    self.class.new(x * other,
-                   y * other,
-                   z * other)
+    if other.is_a?(Vector3D)
+      self.class.new(x * other.x,
+                     y * other.y,
+                     z * other.z)
+    else
+      self.class.new(x * other,
+                     y * other,
+                     z * other)
+    end
   end
 
   def /(other)
@@ -66,6 +72,17 @@ class Vector3D
 
   def unit_vector
     self / length
+  end
+
+  def near_zero?
+    # Return true if vector is close to zero in all dimensions
+    s = 1e-8
+
+    [x, y, z].all? { |dimension| dimension < s }
+  end
+
+  def reflect(normal)
+    self - (normal * dot(normal)) * 2
   end
 
   # ================

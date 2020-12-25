@@ -3,6 +3,7 @@
 require 'time'
 
 require_relative './color'
+require_relative './point'
 require_relative './ray'
 
 require_relative './utils/utils'
@@ -18,7 +19,7 @@ class Image
   include Utils
 
   IMAGE_PATH        = "images/image_#{Time.now.to_i}.ppm"
-  SAMPLES_PER_PIXEL = 10
+  SAMPLES_PER_PIXEL = 100
   MAX_DEPTH         = 50
 
   def initialize(width, height, camera, world)
@@ -84,9 +85,11 @@ class Image
     return Color.black if depth <= 0
 
     if world.hit?(ray, 0.001, Float::INFINITY, hit_record)
-      target = hit_record.point + Vector3D.random_in_hemisphere(hit_record.normal)
+      if hit_record.material.scatter?(ray, hit_record)
+        return ray_color(hit_record.material.scattered, depth - 1) * hit_record.material.attenuation
+      end
 
-      return ray_color(Ray.new(hit_record.point, target - hit_record.point), depth - 1) * 0.5
+      return Color.black
     end
 
     t = 0.5 * (ray.unit_vector.y + 1.0)
