@@ -10,6 +10,7 @@ require './lib/sphere'
 require './lib/vector3d'
 require './lib/world'
 require './lib/materials/lambertian'
+require './lib/materials/dielectric'
 require './lib/materials/metal'
 
 # Image
@@ -22,16 +23,14 @@ middle = Sphere.new(
   Point.new(0.0, 0.0, -1.0),
   0.5,
   Materials::Lambertian.new(
-    Color.new(0.7, 0.3, 0.3)
+    Color.new(0.1, 0.2, 0.5)
   )
 )
+
 left = Sphere.new(
   Point.new(-1.0, 0.0, -1.0),
   0.5,
-  Materials::Metal.new(
-    Color.new(0.8, 0.8, 0.8),
-    0.3
-  )
+  Materials::Dielectric.new(1.5)
 )
 
 right = Sphere.new(
@@ -39,7 +38,7 @@ right = Sphere.new(
   0.5,
   Materials::Metal.new(
     Color.new(0.8, 0.6, 0.2),
-    1.0
+    0.0
   )
 )
 

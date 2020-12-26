@@ -24,7 +24,7 @@ module Materials
     attr_reader :fuzz
 
     def scatter?(ray_in, hit_record)
-      reflected    = ray_in.unit_vector.reflect(hit_record.normal)
+      reflected    = reflect(ray_in.unit_vector, hit_record.normal)
       @scattered   = Ray.new(hit_record.point, reflected + Vector3D.random_in_unit_sphere * fuzz)
       @attenuation = albedo
 

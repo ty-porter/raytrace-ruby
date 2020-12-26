@@ -81,10 +81,6 @@ class Vector3D
     [x, y, z].all? { |dimension| dimension < s }
   end
 
-  def reflect(normal)
-    self - (normal * dot(normal)) * 2
-  end
-
   # ================
   # The below methods are used in approximation of Lambertian diffuse
   # https://raytracing.github.io/books/RayTracingInOneWeekend.html#diffusematerials/analternativediffuseformulation
