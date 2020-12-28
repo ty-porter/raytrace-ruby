@@ -1,0 +1,1 @@
+worker: ruby main.py
