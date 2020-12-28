@@ -1,1 +1,1 @@
-worker: ruby main.py
+worker: ruby main.rb
