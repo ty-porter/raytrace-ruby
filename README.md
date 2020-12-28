@@ -28,6 +28,7 @@ The Good | The Bad
 ![Diffusion](assets/a04_diffusion.png) | ![Diffusion Error](assets/b04_washed_out_diffusion.png)
 ![Materials Differentiation](assets/a05_metal.png) | ![Materials Mistake](assets/b05_materials_rendering.png)
 ![Glass](assets/a06_dielectrics.png) | ![Black Hole](assets/b06_black_hole.png)
+![Camera](assets/a07_camera.png) | Nothing really went wrong this time :(
 
 
 ## Generate Your Own:

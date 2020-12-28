@@ -61,7 +61,11 @@ spheres = [
 spheres.each { |sphere| world.add(sphere) }
 
 # Rendering
-camera = Camera.new
+camera = Camera.new(
+  Point.new(-2, 2, 1),
+  Point.new(0, 0, -1),
+  vertical_fov: 20.0
+)
 width, height = camera.image_dimensions(400)
 image = Image.new(width, height, camera, world)
 image.render
