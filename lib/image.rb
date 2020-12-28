@@ -18,7 +18,7 @@ require_relative './utils/utils'
 class Image
   include Utils
 
-  IMAGE_PATH        = "images/image_#{Time.now.to_i}.ppm"
+  IMAGE_PATH        = "tmp/image_#{Time.now.to_i}.ppm"
   SAMPLES_PER_PIXEL = 500
   MAX_DEPTH         = 50
 
