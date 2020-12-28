@@ -14,65 +14,65 @@ require './lib/materials/dielectric'
 require './lib/materials/metal'
 
 # Image
-IMAGE_WIDTH = 400
+IMAGE_WIDTH = 1200
 
 # World
-world = World.new
+def random_scene
+  # Set up the world
+  world = World.new
 
-middle = Sphere.new(
-  Point.new(0.0, 0.0, -1.0),
-  0.5,
-  Materials::Lambertian.new(
-    Color.new(0.1, 0.2, 0.5)
-  )
-)
+  # Add the ground
+  ground_material = Materials::Lambertian.new(Color.white * 0.5)
+  ground_sphere   = Sphere.new(Point.new(0, -1000, 0), 1000, ground_material)
+  world.add(ground_sphere)
 
-left = Sphere.new(
-  Point.new(-1.0, 0.0, -1.0),
-  0.5,
-  Materials::Dielectric.new(1.5)
-)
+  # Begin a loop
+  (-11..11).each do |a|
+    (-11..11).each do |b|
+      material_probability = rand
+      center = Point.new(a + 0.9 * rand, 0.2, b + 0.9 * rand)
 
-right = Sphere.new(
-  Point.new(1.0, 0.0, -1.0),
-  0.5,
-  Materials::Metal.new(
-    Color.new(0.8, 0.6, 0.2),
-    0.0
-  )
-)
+      # Check it's not too far away
+      next unless (center - Point.new(4, 0.2, 0)).length > 0.9
 
-ground = Sphere.new(
-  Point.new(0.0, -100.5, -1.0),
-  100.0,
-  Materials::Lambertian.new(
-    Color.new(0.8, 0.8, 0.0)
-  )
-)
+      # Make a material based on probability
+      if material_probability < 0.8
+        # Lambertian
+        albedo   = Color.random * Color.random
+        material = Materials::Lambertian.new(albedo)
+      elsif material_probability < 0.95
+        # Metal
+        albedo   = Color.random(0.5, 1.0)
+        fuzz     = rand(0.0..0.5)
+        material = Materials::Metal.new(albedo, fuzz)
+      else
+        # Glass
+        material = Materials::Dielectric.new(1.5)
+      end
 
-spheres = [
-  # Order is important, rendered from front -> back
-  middle,
-  left,
-  right,
-  ground
-]
+      # Add the sphere to the world
+      sphere = Sphere.new(center, 0.2, material)
+      world.add(sphere)
+    end
+  end
 
-spheres.each { |sphere| world.add(sphere) }
+  # Let 'er rip!
+  world
+end
 
 # Rendering
-cam_from = Point.new(3, 3, 2)
-cam_to   = Point.new(0, 0, -1)
-focus    = (cam_from - cam_to).length
+cam_from = Point.new(13, 3, 2)
+cam_to   = Point.new(0, 0, 0)
 
 camera = Camera.new(
   cam_from,
   cam_to,
+  aspect_ratio: 3.0 / 2.0,
   vertical_fov: 20.0,
-  aperture: 2.0,
-  focus_dist: focus
+  aperture: 0.1,
+  focus_dist: 10.0
 )
 
-width, height = camera.image_dimensions(400)
-image = Image.new(width, height, camera, world)
+width, height = camera.image_dimensions(IMAGE_WIDTH)
+image = Image.new(width, height, camera, random_scene)
 image.render

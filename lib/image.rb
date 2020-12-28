@@ -19,7 +19,7 @@ class Image
   include Utils
 
   IMAGE_PATH        = "images/image_#{Time.now.to_i}.ppm"
-  SAMPLES_PER_PIXEL = 10
+  SAMPLES_PER_PIXEL = 500
   MAX_DEPTH         = 50
 
   def initialize(width, height, camera, world)
@@ -43,9 +43,8 @@ class Image
     write("P3\n#{width} #{height}\n255\n")
 
     (height - 1).downto(0).each do |y|
-      print 'Percent complete: ' + percent_complete(y) + "%\r"
-
       (0..width - 1).each do |x|
+        print 'Percent complete: ' + percent_complete(x, y) + "%\r"
         color = Color.new(0, 0, 0)
         (0..SAMPLES_PER_PIXEL - 1).each do |_s|
           # Defining canvas coordinate plane
@@ -122,8 +121,9 @@ class Image
     file.close
   end
 
-  def percent_complete(val)
-    percent = (height - val).to_f / height * 100
-    percent.to_i.to_s
+  def percent_complete(x, y)
+    percent = ((height - y) * width + x).to_f / (height * width) * 100
+
+    format('%.4f', percent)
   end
 end
