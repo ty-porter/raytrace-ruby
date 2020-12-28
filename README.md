@@ -4,7 +4,7 @@ Ruby raytracer
 
 ![Header](assets/header.png)
 
-Written in Ruby 2.7 thanks largely to the book [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html) by Peter Shirley.
+Written in Ruby 2.6 thanks largely to the book [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html) by Peter Shirley.
 
 Outputs to .ppm format (you'll need something like [GIMP](https://www.gimp.org/) to view the files).
 
