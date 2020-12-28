@@ -14,7 +14,7 @@ class Vector3D
     @z = z.to_f
   end
 
-  attr_reader :x, :y, :z
+  attr_accessor :x, :y, :z
 
   def +(other)
     self.class.new(x + other.x,
@@ -102,6 +102,15 @@ class Vector3D
   def self.random_in_unit_sphere
     loop do
       vector = Vector3D.random(-1.0, 1.0)
+      return vector if vector.length_squared < 1
+    end
+  end
+
+  # Generate a unit vector within a circle instead of sphere
+  def self.random_in_unit_disk
+    loop do
+      vector   = Vector3D.random(-1.0, 1.0)
+      vector.z = 0.0
       return vector if vector.length_squared < 1
     end
   end

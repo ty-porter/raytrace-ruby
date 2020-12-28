@@ -18,6 +18,8 @@ require_relative './utils/utils'
 #   :height
 #   :width
 #   :focal_length
+#   :aperture
+#   :focus_dist
 #
 # Options are defaulted unless explicitly passed to the options hash
 # See below for defaults:
@@ -34,8 +36,10 @@ class Camera
     @height       = opts[:height]       || 2.0 * Math.tan(theta / 2.0)
     @width        = opts[:width]        || aspect_ratio * height
     @focal_length = opts[:focal_length] || 1.0
+    @aperture     = opts[:aperture]     || 0.0
+    @focus_dist   = opts[:focus_dist]   || 1.0
 
-    set_coordinate_instance_vars # Set w, u, v and derivatives
+    set_coordinate_instance_vars # Set w, u, v
   end
 
   attr_reader \
@@ -46,11 +50,9 @@ class Camera
     :aspect_ratio,
     :height,
     :width,
-    :origin,
-    :horizontal,
-    :vertical,
     :focal_length,
-    :lower_left,
+    :aperture,
+    :focus_dist,
     :w,
     :u,
     :v
@@ -60,32 +62,49 @@ class Camera
     [image_width, (image_width / aspect_ratio).to_i]
   end
 
-  def get_ray(u, v)
-    Ray.new(origin, ray_direction(u, v))
+  def get_ray(s, t)
+    offset_vector = Vector3D.random_in_unit_disk * lens_radius
+    offset        = u * offset_vector.x + v * offset_vector.y
+
+    Ray.new(origin + offset, ray_direction(s, t, offset))
   end
 
   private
 
-  def ray_direction(u, v)
-    lower_left + horizontal * u + vertical * v - origin
-  end
+  def ray_direction(s, t, offset = nil)
+    direction = lower_left + horizontal * s + vertical * t - origin
+    return direction if offset.nil?
 
-  def theta
-    degrees_to_radians(vertical_fov)
+    direction - offset
   end
 
   def set_coordinate_instance_vars
     @w = (look_from - look_at).unit_vector
     @u = v_up.cross(w).unit_vector
     @v = w.cross(u)
-
-    @origin     = look_from
-    @horizontal = u * width
-    @vertical   = v * height
-    @lower_left = set_lower_left
   end
 
-  def set_lower_left
-    origin - (horizontal / 2.0) - (vertical / 2.0) - w
+  def origin
+    look_from
+  end
+
+  def horizontal
+    u * width * focus_dist
+  end
+
+  def vertical
+    v * height * focus_dist
+  end
+
+  def lower_left
+    origin - (horizontal / 2.0) - (vertical / 2.0) - (w * focus_dist)
+  end
+
+  def lens_radius
+    aperture / 2.0
+  end
+
+  def theta
+    degrees_to_radians(vertical_fov)
   end
 end
