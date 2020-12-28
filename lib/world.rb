@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './hittable'
+require_relative 'hittable'
 
 # Representation of the world to render
 #

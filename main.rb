@@ -2,16 +2,16 @@
 
 require 'pry' # to pry the bugs out
 
-require './lib/camera'
-require './lib/image'
-require './lib/hittable'
-require './lib/point'
-require './lib/sphere'
-require './lib/vector3d'
-require './lib/world'
-require './lib/materials/lambertian'
-require './lib/materials/dielectric'
-require './lib/materials/metal'
+require_relative 'lib/camera'
+require_relative 'lib/image'
+require_relative 'lib/hittable'
+require_relative 'lib/point'
+require_relative 'lib/sphere'
+require_relative 'lib/vector3d'
+require_relative 'lib/world'
+require_relative 'lib/materials/lambertian'
+require_relative 'lib/materials/dielectric'
+require_relative 'lib/materials/metal'
 
 # Image
 IMAGE_WIDTH = 1200

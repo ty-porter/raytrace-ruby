@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative './point'
-require_relative './vector3d'
-require_relative './utils/utils'
+require_relative 'point'
+require_relative 'vector3d'
+require_relative 'utils/utils'
 
 # Camera class for viewing the world.
 #

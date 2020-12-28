@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './base_material'
+require_relative 'base_material'
 require_relative '../ray'
 require_relative '../vector3d'
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './vector3d.rb'
+require_relative 'vector3d.rb'
 
 # A point in space
 #

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative './hittable'
-require_relative './materials/lambertian'
+require_relative 'hittable'
+require_relative 'materials/lambertian'
 
 # A representation of a sphere
 #

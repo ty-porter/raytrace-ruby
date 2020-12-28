@@ -2,11 +2,11 @@
 
 require 'time'
 
-require_relative './color'
-require_relative './point'
-require_relative './ray'
+require_relative 'color'
+require_relative 'point'
+require_relative 'ray'
 
-require_relative './utils/utils'
+require_relative 'utils/utils'
 
 # Contains all the frameworks to generate a rendering and write it to a file
 #
