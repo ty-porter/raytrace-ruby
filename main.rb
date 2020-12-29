@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry' # to pry the bugs out
-
 require_relative 'lib/camera'
 require_relative 'lib/image'
 require_relative 'lib/hittable'
@@ -14,17 +12,24 @@ require_relative 'lib/materials/dielectric'
 require_relative 'lib/materials/metal'
 
 # Image
-IMAGE_WIDTH = 1200
+IMAGE_WIDTH = 400
 
 # World
 def random_scene
   # Set up the world
   world = World.new
 
-  # Add the ground
-  ground_material = Materials::Lambertian.new(Color.white * 0.5)
-  ground_sphere   = Sphere.new(Point.new(0, -1000, 0), 1000, ground_material)
-  world.add(ground_sphere)
+  # Add the three basic spheres
+  left_material   = Materials::Dielectric.new(1.5)
+  left_sphere     = Sphere.new(Point.new(0.0, 1.0, 0.0), 1.0, left_material)
+
+  center_material = Materials::Lambertian.new(Color.new(0.4, 0.2, 0.1))
+  center_sphere   = Sphere.new(Point.new(-4.0, 1.0, 0.0), 1.0, center_material)
+
+  right_material  = Materials::Metal.new(Color.new(0.7, 0.6, 0.5))
+  right_sphere    = Sphere.new(Point.new(4.0, 1.0, 0.0), 1.0, right_material)
+
+  [left_sphere, center_sphere, right_sphere].each { |sphere| world.add(sphere) }
 
   # Begin a loop
   (-11..11).each do |a|
@@ -55,6 +60,11 @@ def random_scene
       world.add(sphere)
     end
   end
+
+  # Add the ground
+  ground_material = Materials::Lambertian.new(Color.white * 0.5)
+  ground_sphere   = Sphere.new(Point.new(0, -1000, 0), 1000, ground_material)
+  world.add(ground_sphere)
 
   # Let 'er rip!
   world

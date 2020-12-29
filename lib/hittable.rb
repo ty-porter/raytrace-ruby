@@ -91,13 +91,25 @@ class HittableList
     closest      = t_max
 
     objects.each do |object|
-      next unless object.hit?(ray, t_min, t_max, hit_record)
+      next unless object.hit?(ray, t_min, t_max, temp_record)
 
       hit_anything = true
       closest      = temp_record.t
-      hit_record   = temp_record
+      set_hit_from_temp(hit_record, temp_record) if hit_record.t.nil? || closest <= hit_record.t
     end
 
     hit_anything
+  end
+
+  private
+
+  def set_hit_from_temp(hr, tr)
+    hr.instance_variables.each do |symbol|
+      variable = symbol.to_s[1, symbol.length]
+      setter   = variable + '='
+      tr_value = tr.send(variable)
+
+      hr.send(setter, tr_value)
+    end
   end
 end

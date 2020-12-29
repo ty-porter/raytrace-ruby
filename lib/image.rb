@@ -46,7 +46,7 @@ class Image
       (0..width - 1).each do |x|
         print 'Percent complete: ' + percent_complete(x, y) + "%\r"
         color = Color.new(0, 0, 0)
-        (0..SAMPLES_PER_PIXEL - 1).each do |_s|
+        (0..SAMPLES_PER_PIXEL - 1).each do
           # Defining canvas coordinate plane
           #
           # u: canvas horizontal
@@ -63,7 +63,7 @@ class Image
       end
     end
 
-    print "Done.                  \n" # Weird hack to get proper newline on WSL
+    print "Done.                  \n"
   ensure
     close
   end
