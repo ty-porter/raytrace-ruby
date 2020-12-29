@@ -6,7 +6,7 @@ Ruby raytracer
 
 Written in Ruby 2.6 thanks largely to the book [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html) by Peter Shirley.
 
-Outputs to .ppm format (you'll need something like [GIMP](https://www.gimp.org/) to view the files). Default render size is 400px x 266px. Larger is possible, but it'll take a *looooooong* time. The above image took about 6 hours to render. For those keeping track at home, that's a very respectable 55 frames per ~~second~~ fortnight!
+Outputs to .ppm format (you'll need something like [GIMP](https://www.gimp.org/) to view the files). There is a sample `sample.ppm` in the `images` directory. Default render size is 400px x 266px. Larger is possible, but it'll take a *looooooong* time. The above image took about 6 hours to render. For those keeping track at home, that's a very respectable 55 frames per ~~second~~ fortnight!
 
 ```
 1 frame   24 hours     14 days 
