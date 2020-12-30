@@ -56,6 +56,7 @@ When you're done, it'll have generated a new timestamped render in the `images` 
 - If you're following along with the tutorial from the book, the trick to use a negative radius make a hollow dielectric sphere *may* not work.
   - See [this image](assets/b06_black_hole.png) for an example of what my render looked like.
   - Everything else about dielectrics seems like it works fine?
+  - (UPDATE) -- It appears this is now working with fixes to the hit order bug.
 
 ## Contact
 

@@ -20,11 +20,11 @@ def random_scene
   world = World.new
 
   # Add the three basic spheres
-  left_material   = Materials::Dielectric.new(1.5)
-  left_sphere     = Sphere.new(Point.new(0.0, 1.0, 0.0), 1.0, left_material)
+  left_material = Materials::Lambertian.new(Color.new(0.4, 0.2, 0.1))
+  left_sphere   = Sphere.new(Point.new(-4.0, 1.0, 0.0), 1.0, left_material)
 
-  center_material = Materials::Lambertian.new(Color.new(0.4, 0.2, 0.1))
-  center_sphere   = Sphere.new(Point.new(-4.0, 1.0, 0.0), 1.0, center_material)
+  center_material   = Materials::Dielectric.new(1.5)
+  center_sphere     = Sphere.new(Point.new(0.0, 1.0, 0.0), 1.0, center_material)
 
   right_material  = Materials::Metal.new(Color.new(0.7, 0.6, 0.5))
   right_sphere    = Sphere.new(Point.new(4.0, 1.0, 0.0), 1.0, right_material)
