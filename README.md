@@ -44,7 +44,7 @@ The Good | The Bad
 Clone this repository, then:
 
 ```shell
-ruby main.py
+ruby main.rb
 ```
 
 Next, you'll probably want to grab a coffee (or six) and reflect on [this meme](https://i.redd.it/9tu18n684z331.jpg) while you wait.
